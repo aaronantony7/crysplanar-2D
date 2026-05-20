@@ -55,14 +55,58 @@
 # STATS
 
 '''
-     Module      : crysplanar 2D v1.3
-     Lines       : <250
-     Tools       : 9
-     Shapes      : 9
-     Palettes    : 35
+     Module       : crysplanar 2D v1.5.2
+     Lines        : <250
+     Tools        : 14
+     Shapes       : 10
+     Palettes     : 35
+     last updated : 5/20/2026
+     
+'''
+
+# ANGLE CONFIGURE
+
+'''
+          90 
+
+          |    
+180  ____ | ____  0
+          |
+          |
+
+         270
 
 '''
 
+# GRAPH CONFIGURE (board)
+
+# board is a 800 x 600 screen.
+
+'''
+board:
+
+  x=-400        x=0       x=400
+    ____________|___________ 
+   |                        |- y = 300
+   |                        |
+   |                        |
+   |          (0,0)         |- y = 0
+   |                        |
+   |                        |
+   |________________________|_ y= -300
+
+
+points:
+
+              (0,+300)
+                 |
+                 |
+  (-400,0)-----(0,0)-----(+400,0)
+                 |
+                 |   
+              (0,-300)
+
+'''
 # crystalmaker syntax:
 
 ''' crystalmaker(sidesno,crystalno,crayon,sidelen,spacing,x=[],y=[])
@@ -201,22 +245,32 @@ war      = ['red', 'black', 'darkred', 'gray']
 # HOW TO ACCESS DRAWSHAPE MODULE ?
 
 '''
-        ds = crysplanar.drawshape()
-        ds.triangle(sidelen=100, fillcolor='red')
+    import crysplanar as cp
 
+    # ArtPencil engine instance is required
+    art = cp.crysplanar()
+
+    # Pass the art engine into the shape constructor
+    ds = cp.drawshape(art)
+
+    # Position your brush and draw your shape
+    art.placer(100, 150)
+    ds.triangle(sidelen=100, fillcolor='red')
+        
 '''
 
 # SHAPES - AUTO GENERATED / AVAILABLE
 
-#   1.  triangle        -   draws a triangle
-#   2.  square          -   draws a square
-#   3.  rectangle       -   draws a rectangle
-#   4.  pentagon        -   draws a pentagon
-#   5.  round           -   draws a circle or arc
-#   6.  polygon         -   draws any polygon (no of sides)
-#   7.  diamond         -   draws a diamond shape
-#   8.  parallelogram   -   draws a parallelogram
-#   9.  heart           -   draws a heart shape
+#   1.  line            -   draws a line
+#   2.  triangle        -   draws a triangle
+#   3.  square          -   draws a square
+#   4.  rectangle       -   draws a rectangle
+#   5.  pentagon        -   draws a pentagon
+#   6.  round           -   draws a circle or arc
+#   7.  polygon         -   draws any polygon (no of sides)
+#   8.  diamond         -   draws a diamond shape
+#   9.  parallelogram   -   draws a parallelogram
+#  10.  heart           -   draws a heart shape
     
 #====================================================================================#
 
@@ -230,7 +284,6 @@ class crysplanar:
     def __init__(self):
         self.p = t.Turtle()
         self.p.shape("circle")
-        self.history = []  
         pg.mixer.init()
 
     def removeart(self):
@@ -306,7 +359,7 @@ class crysplanar:
 
     def version(self):
         name = 'crysplanar 2D '
-        version = '1.3 '
+        version = '1.5.2 '
         print(f'name : {name} \n version : {version}')
         
     def crystalmaker(self, sidesno, crystalno, crayon, sidelen, spacing, x=None, y=None):
@@ -380,6 +433,14 @@ class drawshape:
     def __init__(self, engine):
         self.p = engine.p
 
+    def line(self, length, angle):
+        self.p.getscreen().tracer(0)
+        old_heading = self.p.heading() 
+        self.p.left(angle)
+        self.p.forward(length)
+        self.p.setheading(old_heading) 
+        self.p.getscreen().update()
+        
     def triangle(self, sidelen, rotate=False, fillcolor=None):
         self.p.getscreen().tracer(0)                
         self.p.fillcolor(fillcolor)    
@@ -490,7 +551,3 @@ class drawshape:
 
 # --- END OF DRAWSHAPE CLASS --- #
 
-# Temporary internal module test
-art = crysplanar()
-ds = drawshape(art)
-ds.heart(size=120, fillcolor='hotpink')

@@ -55,8 +55,8 @@
 # STATS
 
 '''
-     Module       : crysplanar 2D v1.4
-     Lines        : <250
+     Module       : crysplanar 2D v1.5.3
+     Lines        : <350
      Tools        : 14
      Shapes       : 10
      Palettes     : 35
@@ -285,7 +285,7 @@ class crysplanar:
         self.p = t.Turtle()
         self.p.shape("circle")
         pg.mixer.init()
-
+        
     def removeart(self):
         self.p.hideturtle()
         self.p.getscreen().update()
@@ -359,7 +359,7 @@ class crysplanar:
 
     def version(self):
         name = 'crysplanar 2D '
-        version = '1.4 '
+        version = '1.5.3 '
         print(f'name : {name} \n version : {version}')
         
     def crystalmaker(self, sidesno, crystalno, crayon, sidelen, spacing, x=None, y=None):
@@ -433,6 +433,12 @@ class drawshape:
     def __init__(self, engine):
         self.p = engine.p
 
+    def _filler(self, fillcolor, func, *args, **kwargs):
+        self.p.fillcolor(fillcolor)
+        self.p.begin_fill()
+        func(*args, **kwargs)
+        self.p.end_fill()
+        
     def line(self, length, angle):
         self.p.getscreen().tracer(0)
         old_heading = self.p.heading() 
@@ -442,112 +448,149 @@ class drawshape:
         self.p.getscreen().update()
         
     def triangle(self, sidelen, rotate=False, fillcolor=None):
-        self.p.getscreen().tracer(0)                
-        self.p.fillcolor(fillcolor)    
-        self.p.begin_fill()
-        for n in range(3):
-            if rotate:
-                self.p.forward(sidelen)
-                self.p.right(120)
-            else:
-                self.p.forward(sidelen)
-                self.p.left(120)
-        self.p.end_fill()
+        self.p.getscreen().tracer(0)                  
+
+        def _raw_draw():
+            for n in range(3):
+                if rotate:
+                    self.p.forward(sidelen)
+                    self.p.right(120)
+                else:
+                    self.p.forward(sidelen)
+                    self.p.left(120)
+                    
+        if fillcolor is not None:
+            self._filler(fillcolor, _raw_draw)
+        else:
+            _raw_draw()
+            
         self.p.getscreen().update()
                
     def square(self, sidelen, fillcolor=None):
-        self.p.getscreen().tracer(0)
-        self.p.fillcolor(fillcolor)    
-        self.p.begin_fill()   
-        for n in range(4):
-            self.p.forward(sidelen)
-            self.p.right(90)
-        self.p.end_fill()
+        self.p.getscreen().tracer(0)   
+
+        def _raw_draw():
+            for n in range(4):
+                self.p.forward(sidelen)
+                self.p.right(90)
+
+        if fillcolor is not None:
+            self._filler(fillcolor, _raw_draw)
+        else:
+            _raw_draw()
+            
         self.p.getscreen().update()
 
     def rectangle(self, width, height, fillcolor=None):
         l = [width, height]
         self.p.getscreen().tracer(0)
-        self.p.fillcolor(fillcolor)    
-        self.p.begin_fill()
-        for n in range(4):
-            self.p.forward(l[n%2])
-            self.p.right(90)
-        self.p.end_fill()
-        self.p.getscreen().update()
 
+        def _raw_draw():
+            for n in range(4):
+                self.p.forward(l[n%2])
+                self.p.right(90)
+
+        if fillcolor is not None:
+            self._filler(fillcolor, _raw_draw)
+        else:
+            _raw_draw()
+            
+        self.p.getscreen().update()
+        
     def pentagon(self, sidelen, fillcolor=None):
         self.p.getscreen().tracer(0)
-        self.p.fillcolor(fillcolor)    
-        self.p.begin_fill()
-        for n in range(5):
-            self.p.forward(sidelen)
-            self.p.left(72)
-        self.p.end_fill()
+
+        def _raw_draw():
+            for n in range(5):
+                self.p.forward(sidelen)
+                self.p.left(72)
+
+        if fillcolor is not None:
+            self._filler(fillcolor, _raw_draw)
+        else:
+            _raw_draw()
+
         self.p.getscreen().update()
 
     def round(self, radius, fillcolor=None, angle=360):
         self.p.getscreen().tracer(0)
-        self.p.fillcolor(fillcolor)    
-        self.p.begin_fill()
-        self.p.circle(radius, angle)
-        self.p.end_fill()
+
+        def _raw_draw():
+            self.p.circle(radius, angle)
+
+        if fillcolor is not None:
+            self._filler(fillcolor, _raw_draw)
+        else:
+            _raw_draw()
+            
         self.p.getscreen().update()
 
     def polygon(self, sidesno, sidelen, fillcolor=None):
         self.p.getscreen().tracer(0)
-        self.p.fillcolor(fillcolor)    
-        self.p.begin_fill()
-        for n in range(sidesno):
-            self.p.forward(sidelen)
-            self.p.left(360/sidesno)
-        self.p.end_fill()
+        
+        def _raw_draw():
+            for n in range(sidesno):
+                self.p.forward(sidelen)
+                self.p.left(360/sidesno)
+
+        if fillcolor is not None:
+            self._filler(fillcolor, _raw_draw)
+        else:
+            _raw_draw()
+            
         self.p.getscreen().update()
 
     def parallelogram(self, width, height, angle=60, fillcolor=None):
         self.p.getscreen().tracer(0)
-        self.p.fillcolor(fillcolor)
-        self.p.begin_fill()
-        for n in range(2):
-            self.p.forward(width)      
-            self.p.left(angle)         
-            self.p.forward(height)     
-            self.p.left(180 - angle)   
-        self.p.end_fill()
+        
+        def _raw_draw():
+            for n in range(2):
+                self.p.forward(width)      
+                self.p.left(angle)         
+                self.p.forward(height)     
+                self.p.left(180 - angle)   
+
+        if fillcolor is not None:
+            self._filler(fillcolor, _raw_draw)
+        else:
+            _raw_draw()
+            
         self.p.getscreen().update()
 
     def heart(self, size=100, fillcolor='red'):
         self.p.getscreen().tracer(0)
-        self.p.fillcolor(fillcolor)
-        self.p.begin_fill()
         
-        self.p.setheading(45)           
-        self.p.forward(size)
+        def _raw_draw():
+            self.p.setheading(45)            
+            self.p.forward(size)
+            self.p.circle(size / 2, 180) 
+            self.p.right(90)
+            self.p.circle(size / 2, 180) 
+            self.p.forward(size)
         
-        self.p.circle(size / 2, 180) 
-        
-        self.p.right(90)
-        
-        self.p.circle(size / 2, 180) 
-        
-        self.p.forward(size)
-        
-        self.p.end_fill()
+        if fillcolor is not None:
+            self._filler(fillcolor, _raw_draw)
+        else:
+            _raw_draw()
+            
         self.p.getscreen().update()
                 
     def diamond(self, sidelen, fillcolor=None):
         self.p.getscreen().tracer(0)
-        self.p.fillcolor(fillcolor)    
-        self.p.begin_fill()   
-        for n in range(4):
-            if n < 1:
-                self.p.left(45)
-                self.p.forward(sidelen)
-            else:
-                self.p.left(90)
-                self.p.forward(sidelen)
-        self.p.end_fill()
-        self.p.getscreen().update()
 
-# --- END OF DRAWSHAPE CLASS --- #
+        def _raw_draw():   
+            for n in range(2):
+                self.p.forward(sidelen)
+                self.p.left(60)
+                self.p.forward(sidelen)
+                self.p.left(120)
+
+        if fillcolor is not None:
+            self._filler(fillcolor, _raw_draw)
+        else:
+            _raw_draw()
+            
+        self.p.getscreen().update()
+        
+# --- END OF DRAWSHAPE CLASS --- #    
 

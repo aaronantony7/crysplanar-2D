@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: crysplanar
-Version: 1.4
+Version: 1.5.2
 Summary: A Python module for designing generative crystal art
 Home-page: https://github.com/aaronantony7/CRYSPLANAR
 Author: aaronantony7
@@ -11,6 +11,7 @@ Classifier: License :: OSI Approved :: MIT License
 Classifier: Topic :: Artistic Software
 Requires-Python: >=3.6
 Description-Content-Type: text/markdown
+License-File: LICENSE
 License-File: LICENSE.txt
 Requires-Dist: pygame
 Requires-Dist: Pillow

@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='crysplanar',
-    version='1.4',
+    version='1.5.3',
     packages=find_packages(),
     install_requires=['pygame', 'Pillow'],
     author='aaronantony7',

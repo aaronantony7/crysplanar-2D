@@ -1,1 +1,1 @@
-from .CRYSPLANAR import crysplanar, drawshape
+from .crysplanar import crysplanar, drawshape
