@@ -133,7 +133,11 @@ cp.crystalmaker(sidesno=6, crystalno=24,
 Draw basic geometric shapes anywhere on the canvas.
 
 ```python
-ds = crysplanar.drawshape()
+import crysplanar as cp
+
+art=cp.crysplanar()
+
+ds = cp.drawshape(art)
 
 ds.triangle(sidelen=100, rotate=False, fillcolor='red')
 ds.square(sidelen=100, fillcolor='blue')
