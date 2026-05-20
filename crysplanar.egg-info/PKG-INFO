@@ -1,0 +1,211 @@
+Metadata-Version: 2.4
+Name: crysplanar
+Version: 1.4
+Summary: A Python module for designing generative crystal art
+Home-page: https://github.com/aaronantony7/CRYSPLANAR
+Author: aaronantony7
+Author-email: aaronantony717@gmail.com
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Topic :: Artistic Software
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: pygame
+Requires-Dist: Pillow
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# CrysplanarArt 3D 💎
+
+> *"3D crystals from 2D planes"*
+
+CrysplanarArt 3D is a Python module for designing stunning generative 
+crystal art using simple and intuitive tools. Built on turtle and pygame, 
+it gives complete creative freedom with minimal code.
+
+---
+
+## 🖼️ Gallery
+
+### The Four Elements
+<img width="1149" height="832" alt="THE FOUR ELEMENTS" src="https://github.com/user-attachments/assets/2d755d32-149e-4058-9166-faac9db7d2d3" />
+
+
+### Galaxy Collision — Good vs Evil
+<img width="1213" height="890" alt="GALAXY COLLISION" src="https://github.com/user-attachments/assets/d61b9162-3f95-4638-ac5e-d7724bb67762" />
+
+
+### Crystal Rod
+<img width="740" height="719" alt="CRYSTAL" src="https://github.com/user-attachments/assets/944c3089-d9a0-41a4-9787-c626aeb95444" />
+
+
+### Hexa Pattern
+<img width="569" height="489" alt="HEXA PATTERN" src="https://github.com/user-attachments/assets/eb1c198b-72f1-4e0f-9d09-9d944707e98c" />
+
+
+### Generative Art
+<img width="1331" height="727" alt="GENERATIVE ART" src="https://github.com/user-attachments/assets/2e76e3ef-f855-4db7-8c85-07bf55c973dc" />
+
+
+### Other Designs
+<img width="1919" height="972" alt="ART (2)" src="https://github.com/user-attachments/assets/d8e763e3-9d0a-40f5-acd9-2193641d317b" />
+<img width="1193" height="685" alt="NEW ART" src="https://github.com/user-attachments/assets/1c350be6-2bbc-4657-ba2c-acd912326dfa" />
+<img width="670" height="478" alt="Screenshot 2026-05-18 132512" src="https://github.com/user-attachments/assets/85dbe6ec-5af6-44dc-9140-49368c203adb" />
+<img width="1024" height="676" alt="art 1" src="https://github.com/user-attachments/assets/4f766177-bace-4865-906c-7468e6f5c4d8" />
+<img width="800" height="678" alt="CRYS" src="https://github.com/user-attachments/assets/78638088-75a6-46f4-a4a5-15b06180a113" />
+
+
+---
+
+## 📦 Installation
+
+```bash
+pip install crysplanar
+```
+
+---
+
+## ⚡ Quick Start
+
+```python
+from crysplanar import crysplanar
+
+cp = crysplanar()
+cp.Board('My Art', 'black')
+cp.ArtPencil(size=1, hidepencil=True)
+
+cp.crystalmaker(
+    sidesno=6,
+    crystalno=24,
+    crayon=['blue', 'red', 'green', 'yellow', 'cyan', 'magenta'],
+    sidelen=100,
+    spacing=10,
+    x=list(range(25)),
+    y=list(range(25))
+)
+```
+
+---
+
+## 🛠️ Tools
+
+| Tool | Description |
+|---|---|
+| `Board` | Setup the art canvas |
+| `ArtPencil` | Configure the drawing pen |
+| `placer` | Move ArtPencil to any position |
+| `crystalmaker` | Generate crystal structures |
+| `drawshape` | Draw basic geometric shapes |
+| `bgmusic` | Add background music |
+| `picback` | Set background image |
+
+---
+
+## 💎 crystalmaker
+
+The flagship tool of CrysplanarArt 2D.
+
+```python
+cp.crystalmaker(sidesno, crystalno, crayon, sidelen, spacing, x, y)
+```
+
+| Parameter | Description |
+|---|---|
+| `sidesno` | Number of sides of the crystal (3=triangle, 6=hexagon) |
+| `crystalno` | Length of the crystal |
+| `crayon` | List of colors for the crystal |
+| `sidelen` | Length of each side in pixels |
+| `spacing` | Spacing between crystal layers |
+| `x / y` | Positional coordinate lists |
+
+### Examples
+
+```python
+# Fire Crystal 🔥
+cp.crystalmaker(sidesno=3, crystalno=12,
+                crayon=['red', 'gold', 'orange'],
+                sidelen=100, spacing=10,
+                x=list(range(12)),
+                y=list(range(12)))
+
+# Ice Crystal ❄️
+cp.crystalmaker(sidesno=4, crystalno=24,
+                crayon=['navy', 'royalblue', 'cyan'],
+                sidelen=100, spacing=10,
+                x=list(range(25)),
+                y=list(range(25)))
+
+# Rainbow Crystal 🌈
+cp.crystalmaker(sidesno=6, crystalno=24,
+                crayon=['blue','red','green','yellow','cyan','magenta'],
+                sidelen=100, spacing=10,
+                x=list(range(25)),
+                y=list(range(25)))
+```
+
+---
+
+## 🔷 drawshape
+
+Draw basic geometric shapes anywhere on the canvas.
+
+```python
+ds = crysplanar.drawshape()
+
+ds.triangle(sidelen=100, rotate=False, fillcolor='red')
+ds.square(sidelen=100, fillcolor='blue')
+ds.rectangle(width=200, height=100, fillcolor='green')
+ds.pentagon(sidelen=100, fillcolor='purple')
+ds.round(radius=50, fillcolor='yellow', angle=360)
+ds.polygon(sidesno=8, sidelen=100, fillcolor='cyan')
+```
+
+---
+
+## 🎵 bgmusic
+
+Add background music to your art canvas.
+
+```python
+cp.bgmusic('music.mp3', repeat=True)
+```
+
+---
+
+## 📋 Requirements
+
+- Python 3.x
+- turtle
+- pygame
+- ghostscript
+
+```bash
+pip install pygame
+```
+
+```bash
+pip install ghostscript
+```
+---
+
+## 📜 License
+
+MIT License — free to use, modify and share with credit.
+
+---
+
+## 👨‍💻 Author
+
+Made with 🧠 and 🐢 
+*Born from a single line: `circle(100, 190)`*

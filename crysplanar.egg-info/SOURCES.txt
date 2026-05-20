@@ -1,0 +1,10 @@
+LICENSE.txt
+README.md
+setup.py
+crysplanar/__init__.py
+crysplanar/crysplanar.py
+crysplanar.egg-info/PKG-INFO
+crysplanar.egg-info/SOURCES.txt
+crysplanar.egg-info/dependency_links.txt
+crysplanar.egg-info/requires.txt
+crysplanar.egg-info/top_level.txt
